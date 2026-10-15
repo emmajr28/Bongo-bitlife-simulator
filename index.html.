@@ -6,284 +6,254 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bongo Bitlfie Simulator</title>
 <style>
-:root {
-  --bg: #10121b;
-  --card: #1b1f2d;
-  --text: #f5f6ff;
-  --muted: #9da5bb;
-  --green: #39e58c;
-  --blue: #6577ff;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, sans-serif;
-}
-header {
-  padding: 22px 18px;
-  background: linear-gradient(135deg,#252b49,#161a28);
-  border-bottom: 1px solid #30364b;
-}
-.brand { font-size: 23px; font-weight: 900; }
-.brand span { color: var(--green); }
-header p { color: var(--muted); margin: 6px 0 0; }
-main { max-width: 650px; margin: auto; padding: 16px; }
-.card {
-  background: var(--card);
-  border: 1px solid #30364a;
-  border-radius: 18px;
-  padding: 18px;
-  margin-bottom: 15px;
-}
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.avatar {
-  width: 76px;
-  height: 76px;
-  border-radius: 20px;
-  display: grid;
-  place-items: center;
-  font-size: 42px;
-  background: linear-gradient(135deg,#454e85,#242b49);
-}
-h2,h3,p { margin-top: 0; }
-h2 { margin-bottom: 5px; font-size: 21px; }
-.muted { color: var(--muted); font-size: 13px; }
-.stats {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 10px;
-}
-.stat {
-  background: #131622;
-  border-radius: 12px;
-  padding: 13px;
-}
-.stat-label { color: var(--muted); font-size: 12px; }
-.stat-value { font-size: 21px; font-weight: 800; margin-top: 5px; }
-.green { color: var(--green); }
-h3 { margin-bottom: 14px; }
-button {
-  border: 0;
-  border-radius: 12px;
-  padding: 13px 12px;
-  background: #30374e;
-  color: white;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-}
-button:active { transform: scale(.98); }
-.primary { background: var(--green); color: #101820; }
-.actions {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 9px;
-}
-.action-icon { font-size: 20px; display: block; margin-bottom: 6px; }
-.wide { width: 100%; margin-top: 12px; }
-#log { line-height: 1.6; font-size: 14px; }
-.log-entry {
-  padding: 9px 0;
-  border-bottom: 1px solid #30364a;
-}
-footer { text-align: center; padding: 20px; color: var(--muted); font-size: 12px; }
+:root{--bg:#101114;--panel:#1c1e24;--green:#38d996;--muted:#a5a8b3;--border:#30323b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f5f5f7;font-family:Arial,sans-serif}
+header{padding:24px 18px;background:linear-gradient(135deg,#173d34,#17221f);border-bottom:1px solid #315447}
+.brand{font-size:25px;font-weight:900;letter-spacing:-1px}
+.brand span{color:var(--green)}
+header p{color:#c4d9d1;font-size:13px;margin:7px 0 0}
+main{max-width:760px;margin:auto;padding:16px}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:16px;margin-bottom:14px}
+h2{font-size:16px;margin:0 0 14px}
+.profile{display:flex;align-items:center;gap:14px}
+.avatar{width:68px;height:68px;border-radius:18px;background:#303b36;display:grid;place-items:center;font-size:39px}
+.name{font-size:20px;font-weight:bold}
+.sub{font-size:12px;color:var(--muted);margin-top:5px}
+.pill{display:inline-block;border-radius:20px;background:#263d34;color:#6de8b1;padding:5px 9px;font-size:11px;margin-top:8px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.stat-head{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px}
+.track{height:7px;background:#353741;border-radius:10px;overflow:hidden}
+.fill{height:100%;border-radius:10px;background:var(--green);transition:width .2s}
+.money{color:#6de8b1;font-weight:bold;font-size:22px}
+.muted{color:var(--muted);font-size:12px}
+.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+button{border:1px solid var(--border);background:#272a32;color:white;padding:13px 10px;border-radius:11px;font-size:13px;font-weight:bold;cursor:pointer}
+button:active{transform:scale(.98)}
+button.primary{background:var(--green);border-color:var(--green);color:#10231a}
+button:disabled{opacity:.4}
+.action-icon{font-size:20px;display:block;margin-bottom:6px}
+.year{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.event{border-left:3px solid var(--green);padding:9px 12px;margin:10px 0;background:#24272e;border-radius:0 8px 8px 0;font-size:13px;line-height:1.5}
+.event small{display:block;color:var(--muted);margin-bottom:4px}
+.notice{font-size:12px;color:var(--muted);line-height:1.6}
+footer{text-align:center;padding:12px 10px 30px;color:#777b86;font-size:11px}
+@media(min-width:560px){.actions{grid-template-columns:repeat(3,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand">🇹🇿 BONGO <span>BITLFIE</span></div>
-  <p>Your life. Your choices. Your future.</p>
+  <div class="brand">BONGO <span>BITLFIE</span> 🇹🇿</div>
+  <p>Your story. Your choices. Your life.</p>
 </header>
 
 <main>
-  <section class="card">
+  <section class="panel">
     <div class="profile">
-      <div class="avatar">🧑🏾</div>
+      <div class="avatar" id="avatar">👨🏾</div>
       <div>
-        <h2 id="name">New Citizen</h2>
-        <div class="muted" id="bio">Age 18 · Tanzania</div>
-        <div class="muted" id="status">🎓 Ready to start your journey</div>
+        <div class="name" id="playerName">Emmanuel John</div>
+        <div class="sub" id="identity">Age 18 · Dar es Salaam, Tanzania</div>
+        <span class="pill" id="status">Young Adult</span>
       </div>
     </div>
   </section>
 
-  <section class="card">
-    <h3>📊 Life Overview</h3>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-label">🎂 Age</div>
-        <div class="stat-value" id="age">18</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">💰 Money</div>
-        <div class="stat-value green" id="money">TSh 500,000</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">❤️ Health</div>
-        <div class="stat-value" id="health">100%</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">😊 Happiness</div>
-        <div class="stat-value" id="happy">80%</div>
-      </div>
-    </div>
+  <section class="panel">
+    <h2>📊 Life Overview</h2>
+    <div class="stats" id="stats"></div>
   </section>
 
-  <section class="card">
-    <h3>🎯 Make Your Choices</h3>
+  <section class="panel">
+    <h2>💵 Financial Status</h2>
+    <div class="money" id="money">TSh 500,000</div>
+    <p class="muted" id="jobInfo">Unemployed · No monthly salary</p>
+  </section>
+
+  <section class="panel">
+    <h2>🎯 Make Your Move</h2>
     <div class="actions">
-      <button onclick="study()"><span class="action-icon">📚</span>Study</button>
-      <button onclick="work()"><span class="action-icon">💼</span>Find Work</button>
-      <button onclick="business()"><span class="action-icon">🏪</span>Start Business</button>
-      <button onclick="exercise()"><span class="action-icon">🏃🏾</span>Exercise</button>
-      <button onclick="socialize()"><span class="action-icon">❤️</span>Social Life</button>
-      <button onclick="rest()"><span class="action-icon">🛌</span>Rest</button>
+      <button onclick="act('study')"><span class="action-icon">📚</span>Study</button>
+      <button onclick="act('work')"><span class="action-icon">💼</span>Find Work</button>
+      <button onclick="act('business')"><span class="action-icon">🏪</span>Start Business</button>
+      <button onclick="act('exercise')"><span class="action-icon">🏃</span>Exercise</button>
+      <button onclick="act('social')"><span class="action-icon">❤️</span>Social Life</button>
+      <button onclick="act('rest')"><span class="action-icon">🛌</span>Rest</button>
     </div>
-    <button class="primary wide" onclick="ageUp()">🎂 AGE UP — Next Year</button>
   </section>
 
-  <section class="card">
-    <h3>📖 Your Life Story</h3>
-    <div id="log" aria-live="polite">
-      <div class="log-entry">✨ Your story begins in Tanzania. What will you do with your life?</div>
+  <section class="panel">
+    <div class="year">
+      <div>
+        <h2 style="margin-bottom:5px">🎂 Ready for another year?</h2>
+        <div class="muted">Time moves forward. Life changes.</div>
+      </div>
+      <button class="primary" onclick="ageUp()">AGE UP ➜</button>
     </div>
+  </section>
+
+  <section class="panel">
+    <h2>📖 Your Life Story</h2>
+    <div id="story" aria-live="polite"></div>
+  </section>
+
+  <section class="panel">
+    <button onclick="resetGame()" style="width:100%">🔄 Start a New Life</button>
+    <p class="notice">Your progress is saved in this browser when local storage is available.</p>
   </section>
 </main>
-
-<footer>Bongo Bitlfie Simulator · Version 1.0</footer>
+<footer>BONGO BITLFIE SIMULATOR · MADE FOR THE BONGO LIFE 🇹🇿</footer>
 
 <script>
-let player = {
-  age: 18,
-  money: 500000,
-  health: 100,
-  happiness: 80,
-  education: 0,
-  employed: false,
-  business: false
-};
+const initial = () => ({
+ age:18,money:500000,health:100,happiness:80,
+ smarts:55,looks:60,job:"Unemployed",salary:0,
+ education:0,business:false,partner:false,
+ history:["You began your adult life in Dar es Salaam with TSh 500,000."]
+});
 
-function formatMoney(amount) {
-  return "TSh " + Math.floor(amount).toLocaleString("en-US");
+let game;
+try {
+ const saved=localStorage.getItem("bongoBitlfieSave");
+ game=saved?JSON.parse(saved):initial();
+ if(!game || typeof game.age!=="number") game=initial();
+} catch(e){game=initial();}
+
+const fmt=n=>"TSh "+Math.round(n).toLocaleString("en-US");
+function save(){
+ try{localStorage.setItem("bongoBitlfieSave",JSON.stringify(game));}catch(e){}
+}
+function addStory(message){
+ game.history.unshift("Age "+game.age+": "+message);
+ game.history=game.history.slice(0,30);
+}
+function random(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+function clamp(n){return Math.max(0,Math.min(100,n));}
+
+function render(){
+ document.getElementById("identity").textContent=
+ "Age "+game.age+" · Dar es Salaam, Tanzania";
+ document.getElementById("status").textContent=
+ game.age<20?"Young Adult":game.age<30?"Building Your Future":
+ game.age<50?"Adult":game.age<65?"Experienced Adult":"Elder";
+ document.getElementById("money").textContent=fmt(game.money);
+ document.getElementById("jobInfo").textContent=
+ game.job+" · "+fmt(game.salary)+"/year";
+ const stats=[
+  ["❤️ Health",game.health],
+  ["😊 Happiness",game.happiness],
+  ["🧠 Smarts",game.smarts],
+  ["✨ Looks",game.looks]
+ ];
+ document.getElementById("stats").innerHTML=stats.map(s=>
+  `<div><div class="stat-head"><span>${s[0]}</span><b>${s[1]}%</b></div>
+  <div class="track"><div class="fill" style="width:${s[1]}%"></div></div></div>`
+ ).join("");
+ document.getElementById("story").innerHTML=game.history.map((s,i)=>
+  `<div class="event"><small>${i===0?"LATEST EVENT":"LIFE EVENT"}</small>${escapeHTML(s)}</div>`
+ ).join("");
+}
+function escapeHTML(s){
+ return String(s).replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
 }
 
-function update() {
-  document.getElementById("age").textContent = player.age;
-  document.getElementById("money").textContent = formatMoney(player.money);
-  document.getElementById("health").textContent = player.health + "%";
-  document.getElementById("happy").textContent = player.happiness + "%";
-  document.getElementById("bio").textContent =
-    "Age " + player.age + " · Tanzania";
-
-  let status = player.business ? "🏪 Business Owner" :
-    player.employed ? "💼 Employed" :
-    player.education > 0 ? "📚 Student" : "🌱 Building your future";
-
-  document.getElementById("status").textContent = status;
-}
-
-function log(message) {
-  const entry = document.createElement("div");
-  entry.className = "log-entry";
-  entry.textContent = message;
-  const box = document.getElementById("log");
-  box.prepend(entry);
-}
-
-function study() {
-  if (player.money < 50000) {
-    log("📚 You need TSh 50,000 to pay for study materials.");
-    return;
+function act(type){
+ if(game.age>=100){addStory("You have reached the end of your playable life. Start a new life to play again.");render();return;}
+ switch(type){
+ case "study":
+  game.smarts=clamp(game.smarts+random(5,12));
+  game.happiness=clamp(game.happiness-random(1,5));
+  addStory("You spent time studying. Your intelligence improved.");
+  break;
+ case "work":
+  if(game.job==="Unemployed"){
+   if(game.smarts>=65){
+    game.job="Office Assistant";game.salary=2400000;
+   }else{
+    game.job="Shop Assistant";game.salary=1440000;
+   }
+   addStory("You got a job as "+game.job+". Your annual salary is "+fmt(game.salary)+".");
+  }else{
+   const earned=Math.round(game.salary/12);
+   game.money+=earned;
+   game.happiness=clamp(game.happiness+2);
+   addStory("You worked hard and received "+fmt(earned)+" in monthly income.");
   }
-  player.money -= 50000;
-  player.education++;
-  player.happiness = Math.min(100, player.happiness + 5);
-  log("📚 You studied hard and improved your knowledge!");
-  update();
-}
-
-function work() {
-  if (player.employed) {
-    log("💼 You already have a job. Keep building your career!");
-    return;
+  break;
+ case "business":
+  if(game.business){
+   const profit=random(20000,100000);
+   game.money+=profit;
+   addStory("Your small business made "+fmt(profit)+" in profit.");
+  }else if(game.money>=300000){
+   game.money-=300000;game.business=true;
+   addStory("You launched a small Bongo business for TSh 300,000. Work hard to grow it!");
+  }else{
+   addStory("You need TSh 300,000 to launch your first small business. Save some money first.");
   }
-  if (player.age < 18) {
-    log("💼 You need to be at least 18 to apply for this job.");
-    return;
-  }
-  player.employed = true;
-  player.money += 300000;
-  log("💼 Congratulations! You found a job and earned TSh 300,000.");
-  update();
+  break;
+ case "exercise":
+  game.health=clamp(game.health+random(5,12));
+  game.looks=clamp(game.looks+random(1,4));
+  addStory("You exercised and took better care of yourself.");
+  break;
+ case "social":
+  game.money=Math.max(0,game.money- random(5000,20000));
+  game.happiness=clamp(game.happiness+random(5,12));
+  game.partner=game.partner||Math.random()<0.2;
+  addStory(game.partner?
+   "You enjoyed time with friends and someone special may be entering your life.":
+   "You went out with friends in Dar es Salaam and enjoyed yourself.");
+  break;
+ case "rest":
+  game.health=clamp(game.health+random(3,8));
+  game.happiness=clamp(game.happiness+random(3,8));
+  addStory("You took time to rest and recharge.");
+  break;
+ }
+ save();render();
 }
 
-function business() {
-  if (player.business) {
-    log("🏪 Your business is running. Keep growing it!");
-    return;
-  }
-  if (player.money < 250000) {
-    log("🏪 You need TSh 250,000 to start a small business.");
-    return;
-  }
-  player.money -= 250000;
-  player.business = true;
-  log("🏪 You opened a small business in Tanzania!");
-  update();
+function ageUp(){
+ if(game.age>=100){
+  addStory("Your journey has reached its final chapter. Start a new life to begin again.");
+  render();return;
+ }
+ game.age++;
+ game.health=clamp(game.health-random(0,4));
+ game.happiness=clamp(game.happiness-random(0,3));
+ if(game.job!=="Unemployed"){
+  const income=Math.round(game.salary/12);
+  game.money+=income;
+  addStory("You received your monthly salary of "+fmt(income)+".");
+ }
+ if(game.business){
+  const profit=random(10000,80000);
+  game.money+=profit;
+  addStory("Your business brought in "+fmt(profit)+" this month.");
+ }
+ const events=[
+  ()=>{game.happiness=clamp(game.happiness+10);return "A family gathering lifted your spirits."},
+  ()=>{game.money=Math.max(0,game.money-50000);return "Unexpected expenses cost you TSh 50,000."},
+  ()=>{game.smarts=clamp(game.smarts+5);return "You learned a valuable new skill."},
+  ()=>{game.happiness=clamp(game.happiness-8);return "You had a difficult week, but you can work toward better days."},
+  ()=>{game.money+=30000;return "You received TSh 30,000 from a small side hustle."}
+ ];
+ addStory("You turned "+game.age+" years old.");
+ if(Math.random()<0.75)addStory(events[random(0,events.length-1)]());
+ if(game.age===22)addStory("You are entering a new chapter. Consider building your career and independence.");
+ if(game.age===30)addStory("Welcome to your thirties. Your past choices have shaped your journey.");
+ if(game.age===60)addStory("You have reached 60. Take care of your health and enjoy your life experience.");
+ save();render();
 }
-
-function exercise() {
-  player.health = Math.min(100, player.health + 10);
-  player.happiness = Math.min(100, player.happiness + 3);
-  log("🏃🏾 You exercised and took care of your health.");
-  update();
+function resetGame(){
+ if(confirm("Start a completely new life? Your current game progress will be lost.")){
+  game=initial();save();render();
+ }
 }
-
-function socialize() {
-  player.happiness = Math.min(100, player.happiness + 10);
-  player.money -= 10000;
-  log("❤️ You spent time with friends. Happiness increased!");
-  update();
-}
-
-function rest() {
-  player.health = Math.min(100, player.health + 5);
-  player.happiness = Math.min(100, player.happiness + 5);
-  log("🛌 You rested and felt refreshed.");
-  update();
-}
-
-function ageUp() {
-  player.age++;
-  player.health = Math.max(0, player.health - 1);
-  player.money -= 50000;
-
-  if (player.employed) player.money += 300000;
-  if (player.business) player.money += 100000;
-
-  if (player.money < 0) player.money = 0;
-
-  log("🎂 You turned " + player.age +
-    "! A new year brings new opportunities and challenges.");
-
-  if (player.age === 25) {
-    log("🌟 You are 25! Think about your career, relationships and future.");
-  }
-
-  if (player.age >= 100) {
-    log("🎉 You have reached 100 years old. What a life story!");
-  }
-
-  update();
-}
-
-update();
+render();
 </script>
 </body>
 </html>
